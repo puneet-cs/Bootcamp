@@ -1,6 +1,7 @@
 # University Management System using Streamlit
 
 # pip install streamlit
+# streamlit run OOP_UMS.py
 import streamlit as st
 
 st.set_page_config(
@@ -82,3 +83,19 @@ elif menu_choice == "Add Student":
                  clg = find_college(clgname)
                  clg.add_student(student(roll,sname,branch))
                  st.success("Student added successfully")
+
+elif menu_choice == "Add Teacher":
+    if not st.session_state.colleges:
+        st.info("Please insert a college first")
+    else:
+        clgname = st.selectbox("Choose College", [c.cname for c in st.session_state.colleges])
+        subject = st.text_input("Enter your Subject")
+        tname = st.text_input("Enter Teacher name")
+        branch = st.text_input("Enter the branch")
+        if st.button("Add Teacher"):
+            if not(subject and tname and branch and clgname):
+                st.error("Please Enter all the require info")
+            else:
+                 clg = find_college(clgname)
+                 clg.add_teacher(student(branch,tname,subject))
+                 st.success("Teacher added successfully")
