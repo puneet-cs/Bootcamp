@@ -99,3 +99,37 @@ elif menu_choice == "Add Teacher":
                  clg = find_college(clgname)
                  clg.add_teacher(student(branch,tname,subject))
                  st.success("Teacher added successfully")
+
+elif menu_choice == "Display Students":
+    if not st.session_state.colleges:
+        st.info("Please insert a college first")
+    else:
+        clgname = st.selectbox("Choose College", [c.cname for c in st.session_state.colleges])
+        clg = find_college(clgname)
+        st.subheader(f"Students in {clgname}")
+        if clg.students:
+            for i, s in enumerate(clg.students, 1):
+                st.write(f"{i}. {s.name}")
+        else:
+            st.warning("No Student found")
+
+elif menu_choice == "Display Teachers":
+    if not st.session_state.colleges:
+        st.info("Please insert a college first")
+    else:
+        clgname = st.selectbox("Choose College", [c.cname for c in st.session_state.colleges])
+        clg = find_college(clgname)
+        st.subheader(f"Teacher in {clgname}")
+        if clg.teachers:
+            for i, t in enumerate(clg.teachers, 1):
+                st.write(f"{i}. {t.name}")
+        else:
+            st.warning("No teacher found")
+
+elif menu_choice == "List Colleges":
+    st.subheader("List of Colleges")
+    if not st.session_state.colleges:
+        st.info("Please insert a college first")
+    else:
+        for i, c in enumerate(st.session_state.colleges, 1):
+            st.write(f"{i} : {c.cname}")
